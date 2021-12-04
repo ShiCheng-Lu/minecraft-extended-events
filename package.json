@@ -1,6 +1,6 @@
 {
   "name": "mojang-minecraft-extended-events",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "description": "a wrapper for old scripting that extends mojang-minecraft events",
   "main": "index.js",
   "scripts": {
