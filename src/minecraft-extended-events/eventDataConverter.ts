@@ -1,54 +1,58 @@
-import { BlockLocation, World, ItemStack, Commands } from "mojang-minecraft";
+///  <reference types="./event-data" />
+import { BeforeExplosionEvent, BlockLocation, World, Dimension, ItemStack } from "mojang-minecraft"
+
 World.events.beforeExplosion.subscribe(recieveData);
-const callbacks = {};
-function parseData(arg, dimension) {
+
+type EventCallback = (arg: any) => void
+
+const callbacks: { [key: string]: EventCallback[] } = {}
+
+function parseData(arg: FieldData, dimension: Dimension) {
     if (arg === undefined) {
         return;
-    }
-    else if (arg.type === "player") {
+    } else if (arg.type === "player") {
         return World.getPlayers().find((value) => value.nameTag === arg.data);
-    }
-    else if (arg.type === "block") {
+    } else if (arg.type === "block") {
         const location = new BlockLocation(arg.data.x, arg.data.y, arg.data.z);
         return dimension.getBlock(location);
-    }
-    else if (arg.type === "entity") {
+    } else if (arg.type === "entity") {
         const location = new BlockLocation(arg.data.x, arg.data.y, arg.data.z);
         return dimension.getEntitiesAtBlockLocation(location).find((value) => {
             value.id === arg.data.id;
         });
-    }
-    else if (arg.type === "itemStack") {
+    } else if (arg.type === "itemStack") {
         return new ItemStack(arg.data.name, arg.data.amount, 0);
-    }
-    else {
+    } else {
         return arg.data;
     }
 }
-function recieveData(arg) {
-    Commands.run(`say ${JSON.stringify(arg)}`, arg.dimension);
-    if (arg.source.id !== "data:json")
-        return;
-    arg.cancel = true;
-    Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
-    const parsed = JSON.parse(arg.source.nameTag.replace(/'/g, '"'));
-    const data = {};
+
+function recieveData(arg: BeforeExplosionEvent) {
+    if (arg.source.id !== "data:json") return;
+    arg.cancel = true; // stop the explosion
+
+    // Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
+
+    const parsed: EventData = JSON.parse(arg.source.nameTag);
+    const data: { [key: string]: any } = {}
     for (let property in parsed.data) {
         data[property] = parseData(parsed.data[property], arg.dimension);
     }
     data["dimension"] = arg.dimension;
+
     callbacks[parsed.id].forEach(callback => {
-        Commands.run(`say calledback one function`, arg.dimension);
         callback(data);
     });
 }
-export function subscribe(event, callback) {
+
+export function subscribe(event: string, callback: EventCallback): EventCallback {
     if (callbacks[event] === undefined) {
-        callbacks[event] = [];
+        callbacks[event] = []
     }
     callbacks[event].push(callback);
     return callback;
 }
-export function unsubscribe(event, callback) {
+
+export function unsubscribe(event: string, callback: EventCallback) {
     callbacks[event] = callbacks[event].filter(callback);
 }

@@ -28,8 +28,12 @@ export class World {
      * @returns
      * All players currently in the world.
      */
-    getPlayers = MCWorld.getPlayers;
-    static getPlayers = MCWorld.getDimension;
+    getPlayers() {
+        return MCWorld.getPlayers();
+    }
+    static getPlayers() {
+        return MCWorld.getPlayers();
+    }
 }
 
 export const world = new World;

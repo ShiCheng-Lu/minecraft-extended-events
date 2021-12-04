@@ -31,3 +31,7 @@ make sure this file is not overwritten or deleted
  ### Game options
  * Additional Moding Capabilities
  * Enable Gametest Framework
+
+
+
+special thanks to [MajestikButter](https://github.com/MajestikButter) for inspiring data_json.json entity data transfer

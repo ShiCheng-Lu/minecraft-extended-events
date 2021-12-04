@@ -142,7 +142,7 @@ function createEventHandler(playerKey: string) {
         }
 
         const playerName = playerData.data;
-        const dataString = JSON.stringify(eventData).replace(/"/g, "'");
+        const dataString = JSON.stringify(JSON.stringify(eventData));
 
         // server.log(`transmitted data: ${dataString}`);
 

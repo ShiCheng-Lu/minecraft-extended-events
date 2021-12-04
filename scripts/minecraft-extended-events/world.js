@@ -3,7 +3,6 @@ import { Events } from './events.js';
 export class World {
     constructor() {
         this["events"] = new Events;
-        this.getPlayers = MCWorld.getPlayers;
     }
     getDimension(dimension) {
         return MCWorld.getDimension(dimension);
@@ -11,7 +10,12 @@ export class World {
     static getDimension(dimension) {
         return MCWorld.getDimension(dimension);
     }
+    getPlayers() {
+        return MCWorld.getPlayers();
+    }
+    static getPlayers() {
+        return MCWorld.getPlayers();
+    }
 }
 World["events"] = new Events;
-World.getPlayers = MCWorld.getDimension;
 export const world = new World;

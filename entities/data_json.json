@@ -23,7 +23,8 @@
             "minecraft:collision_box": {
                 "width": 0,
                 "height": 0
-            }
+            },
+            "minecraft:instant_despawn": {}
         }
     }
 }

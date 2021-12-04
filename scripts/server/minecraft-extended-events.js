@@ -91,12 +91,11 @@ function createEventHandler(playerKey) {
         }
         const playerData = eventData.data[playerKey];
         if (playerData === undefined) {
-            system.executeCommand(`/say failed: play data did not exist`, () => { });
+            system.executeCommand(`/say failed: play data did not exist (unreachable)`, () => { });
             return;
         }
         const playerName = playerData.data;
-        const dataString = JSON.stringify(eventData).replace(/"/g, "'");
+        const dataString = JSON.stringify(JSON.stringify(eventData));
         system.executeCommand(`/execute "${playerName}" ~~~ summon data:json "${dataString}"`, () => { });
-        system.executeCommand(`/say ${playerName} --- ${dataString}`, () => { });
     };
 }
