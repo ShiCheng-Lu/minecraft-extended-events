@@ -1,6 +1,11 @@
 declare type EntityData = {
     type: "player" | "entity" | "item",
-    data: any
+    data: string | {
+        x: number,
+        y: number,
+        z: number,
+        id: string,
+    }
 } | undefined
 
 declare type BlockData = {
@@ -13,8 +18,11 @@ declare type BlockData = {
 } | undefined
 
 declare type ItemData = {
-    type: "itemStack",
-    data: any
+    type: "item",
+    data: {
+        name: string
+        count: number
+    }
 } | undefined
 
 declare type RawData = {
@@ -22,7 +30,10 @@ declare type RawData = {
     data: any
 } | undefined
 
-declare type FieldData = EntityData | BlockData | ItemData | RawData;
+declare type FieldData = {
+    type: string,
+    data: any
+} | undefined
 
 declare type EventData = {
     id: string,

@@ -1,14 +1,13 @@
 //  <reference types="minecraft-scripting-types-server" />
-import { Block, Entity, Dimension } from 'mojang-minecraft'
+import { Block, Entity, Dimension, Player, ItemStack } from 'mojang-minecraft'
 import { subscribe, unsubscribe } from './eventDataConverter.js';
 
+ReceiveFromMinecraftServer.BlockDestructionStarted;
 export class BlockDestructionStartedEvent {
-    // the entity that started to destroy the block
-    "player": Entity;
+    "player": Player;
     "block": Block;
-    "dimension": Dimension
+    "dimension": Dimension;
 }
-
 export class BlockDestructionStartedEventSignal {
     /**
      * @remarks
@@ -31,13 +30,13 @@ export class BlockDestructionStartedEventSignal {
     }
 }
 
+ReceiveFromMinecraftServer.BlockDestructionStopped;
 export class BlockDestructionStoppedEvent {
-    // the entity that started to destroy the block
-    "player": Entity;
-
+    "player": Player;
     "block": Block;
+    "destruction_progress": number
+    "dimension": Dimension;
 }
-
 export class BlockDestructionStoppedEventSignal {
     /**
      * @remarks
@@ -60,13 +59,12 @@ export class BlockDestructionStoppedEventSignal {
     }
 }
 
+ReceiveFromMinecraftServer.BlockInteractedWith;
 export class BlockInteractedWithEvent {
-    // the entity that started to destroy the block
-    "player": Entity;
-
+    "player": Player;
     "block": Block;
+    "dimension": Dimension;
 }
-
 export class BlockInteractedWithEventSignal {
     /**
      * @remarks
@@ -90,59 +88,107 @@ export class BlockInteractedWithEventSignal {
 }
 
 ReceiveFromMinecraftServer.EntityAcquiredItem;
-export class EntityAcquiredItemEvent { }
-export class EntityAcquiredItemEventSignal { }
+export class EntityAcquiredItemEvent {
+    "entity": Player;
+    "item_stack": ItemStack;
+    "aquired_amount": number;
+    "acquisition_method": string;
+    "secondary_entity": Entity;
+}
+export class EntityAcquiredItemEventSignal {
+    /**
+     * @remarks
+     * Adds a callback that will be called when a block destruction stops
+     * explosion behavior.
+     * @param callback
+     */
+    subscribe(callback: (arg: EntityAcquiredItemEvent) => void): (arg: EntityAcquiredItemEvent) => void {
+        subscribe(ReceiveFromMinecraftServer.EntityAcquiredItem, callback);
+        return callback;
+    }
+    /**
+     * @remarks
+     * Removes a callback from being called from when block destruction stops
+     * @param callback
+     * @throws This function can throw errors.
+     */
+    unsubscribe(callback: (arg: EntityAcquiredItemEvent) => void): void {
+        unsubscribe(ReceiveFromMinecraftServer.EntityAcquiredItem, callback);
+    }
+}
 
 ReceiveFromMinecraftServer.EntityCarriedItemChanged;
-export class EntityCarriedItemChangedEvent { }
+export class EntityCarriedItemChangedEvent {
+    "carried_item": ItemStack;
+    "entity": Player;
+    "previous_carried_item": ItemStack;
+}
 export class EntityCarriedItemChangedEventSignal { }
 
 // ReceiveFromMinecraftServer.EntityCreated;
 ReceiveFromMinecraftServer.EntityDeath;
-export class EntityDeathEvent { }
+export class EntityDeathEvent {
+    "entity": Player;
+}
 export class EntityDeathEventSignal { }
 
 ReceiveFromMinecraftServer.EntityDroppedItem;
-export class EntityDroppedItemEvent { }
+export class EntityDroppedItemEvent {
+    "entity": Player;
+    "item_stack": ItemStack;
+}
 export class EntityDroppedItemEventSignal { }
 
 ReceiveFromMinecraftServer.EntityEquippedArmor;
-export class EntityEquippedArmorEvent { }
+export class EntityEquippedArmorEvent {
+    "entity": Player;
+    "item_stack": ItemStack;
+}
 export class EntityEquippedArmorEventSignal { }
 
 ReceiveFromMinecraftServer.EntityStartRiding;
-export class EntityStartRidingEvent { }
+export class EntityStartRidingEvent {
+    "entity": Player;
+    "ride": Entity;
+}
 export class EntityStartRidingEventSignal { }
 
 ReceiveFromMinecraftServer.EntityStopRiding;
-export class EntityStopRidingEvent { }
+export class EntityStopRidingEvent {
+    "entity": Player;
+    "entity_is_being_destroyed": boolean;
+    "exit_from_rider": boolean;
+    "switching_rides": boolean;
+}
 export class EntityStopRidingEventSignal { }
 
 // ReceiveFromMinecraftServer.EntityTick;
 ReceiveFromMinecraftServer.EntityUseItem;
-export class EntityUseItemEvent { }
+export class EntityUseItemEvent {
+    "entity": Player;
+    "item_stack": ItemStack;
+    "use_method": string;
+}
 export class EntityUseItemEventSignal { }
 
-ReceiveFromMinecraftServer.PistonMovedBlock;
-export class PistonMovedBlockEvent { }
-export class PistonMovedBlockEventSignal { }
-
-ReceiveFromMinecraftServer.PlaySound;
-export class PlaySoundItemEvent { }
-export class PlaySoundEventSignal { }
+// ReceiveFromMinecraftServer.PistonMovedBlock;
+// ReceiveFromMinecraftServer.PlaySound;
 
 ReceiveFromMinecraftServer.PlayerAttackedEntity;
-export class PlayerAttackedEntityEvent { }
+export class PlayerAttackedEntityEvent {
+    "attacked_entity": Entity;
+    "player": Player;
+}
 export class PlayerAttackedEntityEventSignal { }
 
 
+ReceiveFromMinecraftServer.PlayerDestroyedBlock;
 export class PlayerDestroyedBlockEvent {
     // the entity that started to destroy the block
-    "player": Entity;
-
+    "player": Player;
     "block": Block;
+    "block_identifier": Block;
 }
-
 export class PlayerDestroyedBlockEventSignal {
     /**
      * @remarks
@@ -165,13 +211,12 @@ export class PlayerDestroyedBlockEventSignal {
     }
 }
 
+ReceiveFromMinecraftServer.PlayerPlacedBlock;
 export class PlayerPlacedBlockEvent {
     // the entity that started to destroy the block
     "player": Entity;
-
     "block": Block;
 }
-
 export class PlayerPlacedBlockEventSignal {
     /**
      * @remarks

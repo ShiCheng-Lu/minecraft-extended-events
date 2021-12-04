@@ -1,5 +1,4 @@
 /// <reference types="minecraft-scripting-types-server"/>
-/// <reference types="../gametest/event-data"/>
 
 // register client system
 const system = server.registerSystem(0, 0);
@@ -75,28 +74,15 @@ function parseEntity(data: IEntity): EntityData {
             type: "entity",
             data: {
                 id: data.__identifier__,
-                pos: pos.data,
+                ...pos.data,
             },
         }
     }
 }
 
-function parseItemEntity(data: IEntity): EntityData {
-    const name = system.getComponent(data, MinecraftComponent.Nameable);
-    if (name === null) {
-        return;
-    }
+function parseItem(data: IItemStack): ItemData {
     return {
         type: "item",
-        data: {
-            name: name.data.name
-        }
-    }
-}
-
-function parseItemStack(data: IItemStack): ItemData {
-    return {
-        type: "itemStack",
         data: {
             name: data.item,
             count: data.count,
@@ -109,13 +95,10 @@ function parseItemStack(data: IItemStack): ItemData {
  * @param data an property on a scripting event
  */
 function parseProperty(data: any): FieldData {
-    if (data.__type__ === "entity") {
+    if (data.__type__ === "entity" || data.__type__ === "item_entity") {
         return parseEntity(data);
     } else if (data.__type__ === "item_stack") {
-        return parseItemStack(data);
-    } else if (data.__type__ === "item_entity") {
-        return parseItemEntity(data);
-
+        return parseItem(data);
     } else if (data.x !== undefined && data.y !== undefined && data.z !== undefined) {
         return {
             type: "block",
@@ -143,6 +126,9 @@ function createEventHandler(playerKey: string) {
 
         for (let property in data.data) {
             const propData = parseProperty(data.data[property]);
+            if (property === "block_position") {
+                property = "block";
+            }
             eventData.data[property] = propData;
         }
 

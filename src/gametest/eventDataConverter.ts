@@ -1,4 +1,4 @@
-import { BeforeExplosionEvent, BlockLocation, World, Dimension } from "mojang-minecraft"
+import { BeforeExplosionEvent, BlockLocation, World, Dimension, ItemStack } from "mojang-minecraft"
 
 World.events.beforeExplosion.subscribe(recieveData);
 
@@ -19,6 +19,8 @@ function parseData(arg: FieldData, dimension: Dimension) {
         return dimension.getEntitiesAtBlockLocation(location).find((value) => {
             value.id === arg.data.id;
         });
+    } else if (arg.type === "itemStack") {
+        return new ItemStack(arg.data.name, arg.data.amount, 0);
     } else {
         return arg.data;
     }

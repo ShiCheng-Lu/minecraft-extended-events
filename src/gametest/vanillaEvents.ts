@@ -1,5 +1,4 @@
 import { World } from "mojang-minecraft";
-
 export class VanillaEvents {
     /**
      * This event fires before a chat message is broadcast or
