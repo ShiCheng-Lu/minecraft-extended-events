@@ -1,6 +1,6 @@
 {
   "name": "minecraft-extended-events",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "adds additional events from old minecraft scripting to new gametest based scripting",
   "main": "index.js",
   "scripts": {
