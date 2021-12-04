@@ -1,4 +1,4 @@
-import { Commands, World as MCWorld } from 'mojang-minecraft'
+import { World as MCWorld } from 'mojang-minecraft'
 import { Events } from './events.js';
 
 export class World {
@@ -6,8 +6,8 @@ export class World {
      * Contains a set of events that are applicable to the entirety
      * of the world.
      */
-    readonly "events": Events;
-    static readonly "events": Events;
+    readonly "events" = new Events;
+    static readonly "events" = new Events;
     /**
      * @param dimensionName
      * The name of the Dimension
@@ -16,8 +16,12 @@ export class World {
      * @throws
      * Throws if the given dimension name is invalid
      */
-    getDimension = MCWorld.getDimension;
-    static getDimension = MCWorld.getDimension;
+    getDimension(dimension: "overworld" | "nether" | "the end") {
+        return MCWorld.getDimension(dimension);
+    }
+    static getDimension(dimension: "overworld" | "nether" | "the end") {
+        return MCWorld.getDimension(dimension);
+    }
     /**
      * @remarks
      * Returns all players currently in the world.
@@ -29,7 +33,3 @@ export class World {
 }
 
 export const world = new World;
-
-World.events.blockDestructionStarted.subscribe((data) => {
-    Commands.run(`say ${data.player.nameTag}`, World.getDimension("overworld"));
-})

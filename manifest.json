@@ -25,7 +25,7 @@
                 0,
                 1
             ],
-            "entry": "scripts/test.js"
+            "entry": "scripts/test/fromEvent.js"
         }
     ],
     "dependencies": [

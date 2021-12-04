@@ -1,11 +1,11 @@
 import { Commands } from "mojang-minecraft"
-import { World } from "./index.js"
+import { World } from "../index.js"
 
 const OVERWORLD = World.getDimension("overworld");
 
 function sayData(eventName: string) {
     return function(data: any) {
-        Commands.run(`say ${eventName}: ${JSON.stringify(data)}`, OVERWORLD);
+        Commands.run(`say ${eventName}`, OVERWORLD);
     }
 }
 
@@ -32,5 +32,5 @@ World.events.pistonActivate.subscribe(sayData("pistonActivate"));
 World.events.playerAttackedEntity.subscribe(sayData("playerAttackedEntity"));
 World.events.playerDestroyedBlock.subscribe(sayData("playerDestroyedBlock"));
 World.events.playerPlacedBlock.subscribe(sayData("playerPlacedBlock"));
-World.events.tick.subscribe(sayData("tick"));
+// World.events.tick.subscribe(sayData("tick"));
 World.events.weatherChange.subscribe(sayData("weatherChanged"));

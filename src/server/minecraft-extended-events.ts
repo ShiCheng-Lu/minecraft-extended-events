@@ -26,32 +26,32 @@ system.initialize = function() {
     // system.listenForEvent(ReceiveFromMinecraftServer.WeatherChanged, raiseEvent);
 };
 
-function getAllComponent(entity: IEntity): any[] {
-    return [
-        system.getComponent(entity, MinecraftComponent.ArmorContainer),
-        system.getComponent(entity, MinecraftComponent.Attack),
-        system.getComponent(entity, MinecraftComponent.CollisionBox),
-        system.getComponent(entity, MinecraftComponent.DamageSensor),
-        system.getComponent(entity, MinecraftComponent.Equipment),
-        system.getComponent(entity, MinecraftComponent.Equippable),
-        system.getComponent(entity, MinecraftComponent.Explode),
-        system.getComponent(entity, MinecraftComponent.HandContainer),
-        system.getComponent(entity, MinecraftComponent.Healable),
-        system.getComponent(entity, MinecraftComponent.Health),
-        system.getComponent(entity, MinecraftComponent.HotbarContainer),
-        system.getComponent(entity, MinecraftComponent.Interact),
-        system.getComponent(entity, MinecraftComponent.Inventory),
-        system.getComponent(entity, MinecraftComponent.InventoryContainer),
-        system.getComponent(entity, MinecraftComponent.LookAt),
-        system.getComponent(entity, MinecraftComponent.Nameable),
-        system.getComponent(entity, MinecraftComponent.Position),
-        system.getComponent(entity, MinecraftComponent.Rotation),
-        system.getComponent(entity, MinecraftComponent.Shooter),
-        system.getComponent(entity, MinecraftComponent.SpawnEntity),
-        system.getComponent(entity, MinecraftComponent.Teleport),
-        system.getComponent(entity, MinecraftComponent.TickWorld)
-    ]
-}
+// function getAllComponent(entity: IEntity): any[] {
+//     return [
+//         system.getComponent(entity, MinecraftComponent.ArmorContainer),
+//         system.getComponent(entity, MinecraftComponent.Attack),
+//         system.getComponent(entity, MinecraftComponent.CollisionBox),
+//         system.getComponent(entity, MinecraftComponent.DamageSensor),
+//         system.getComponent(entity, MinecraftComponent.Equipment),
+//         system.getComponent(entity, MinecraftComponent.Equippable),
+//         system.getComponent(entity, MinecraftComponent.Explode),
+//         system.getComponent(entity, MinecraftComponent.HandContainer),
+//         system.getComponent(entity, MinecraftComponent.Healable),
+//         system.getComponent(entity, MinecraftComponent.Health),
+//         system.getComponent(entity, MinecraftComponent.HotbarContainer),
+//         system.getComponent(entity, MinecraftComponent.Interact),
+//         system.getComponent(entity, MinecraftComponent.Inventory),
+//         system.getComponent(entity, MinecraftComponent.InventoryContainer),
+//         system.getComponent(entity, MinecraftComponent.LookAt),
+//         system.getComponent(entity, MinecraftComponent.Nameable),
+//         system.getComponent(entity, MinecraftComponent.Position),
+//         system.getComponent(entity, MinecraftComponent.Rotation),
+//         system.getComponent(entity, MinecraftComponent.Shooter),
+//         system.getComponent(entity, MinecraftComponent.SpawnEntity),
+//         system.getComponent(entity, MinecraftComponent.Teleport),
+//         system.getComponent(entity, MinecraftComponent.TickWorld)
+//     ]
+// }
 
 function parseEntity(data: IEntity): EntityData {
     if (data.__identifier__ === "minecraft:player") {
@@ -74,7 +74,9 @@ function parseEntity(data: IEntity): EntityData {
             type: "entity",
             data: {
                 id: data.__identifier__,
-                ...pos.data,
+                x: pos.data.x,
+                y: pos.data.y,
+                z: pos.data.z,
             },
         }
     }
@@ -116,6 +118,7 @@ function createEventHandler(playerKey: string) {
     return function(data: any) {
         // if the event does not involve a player, then it's hard to acurately transmite the data
         if (data.data[playerKey].__identifier__ !== "minecraft:player") {
+            system.executeCommand(`/say failed: no player involved`, () => { });
             return;
         }
 
@@ -134,14 +137,16 @@ function createEventHandler(playerKey: string) {
 
         const playerData = eventData.data[playerKey];
         if (playerData === undefined) {
+            system.executeCommand(`/say failed: play data did not exist`, () => { });
             return;
         }
 
         const playerName = playerData.data;
         const dataString = JSON.stringify(eventData).replace(/"/g, "'");
-        system.executeCommand(`/execute "${playerName}" ~~~ summon data:json "${dataString}"`, () => { });
 
-        system.executeCommand(`/say "${dataString}"`, () => { });
-        server.log(`transmitted data: ${dataString}`);
+        // server.log(`transmitted data: ${dataString}`);
+
+        system.executeCommand(`/execute "${playerName}" ~~~ summon data:json "${dataString}"`, () => { });
+        system.executeCommand(`/say ${playerName} --- ${dataString}`, () => { });
     }
 }

@@ -1,4 +1,4 @@
-import { BeforeExplosionEvent, BlockLocation, World, Dimension, ItemStack } from "mojang-minecraft"
+import { BeforeExplosionEvent, BlockLocation, World, Dimension, ItemStack, Commands } from "mojang-minecraft"
 
 World.events.beforeExplosion.subscribe(recieveData);
 
@@ -27,9 +27,11 @@ function parseData(arg: FieldData, dimension: Dimension) {
 }
 
 function recieveData(arg: BeforeExplosionEvent) {
+    Commands.run(`say ${JSON.stringify(arg)}`, arg.dimension);
+
     if (arg.source.id !== "data:json") return;
 
-    // Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
+    Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
     // Commands.run(`say ${arg.source.getComponent("explode").id}`, World.getDimension("overworld"));
 
     const parsed: EventData = JSON.parse(arg.source.nameTag.replace(/'/g, '"'));
@@ -40,6 +42,7 @@ function recieveData(arg: BeforeExplosionEvent) {
     data["dimension"] = arg.dimension;
 
     callbacks[parsed.id].forEach(callback => {
+        Commands.run(`say calledback one function`, arg.dimension);
         callback(data);
     });
 }

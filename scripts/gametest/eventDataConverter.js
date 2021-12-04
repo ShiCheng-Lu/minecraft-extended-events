@@ -1,4 +1,4 @@
-import { BlockLocation, World, ItemStack } from "mojang-minecraft";
+import { BlockLocation, World, ItemStack, Commands } from "mojang-minecraft";
 World.events.beforeExplosion.subscribe(recieveData);
 const callbacks = {};
 function parseData(arg, dimension) {
@@ -26,8 +26,10 @@ function parseData(arg, dimension) {
     }
 }
 function recieveData(arg) {
+    Commands.run(`say ${JSON.stringify(arg)}`, arg.dimension);
     if (arg.source.id !== "data:json")
         return;
+    Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
     const parsed = JSON.parse(arg.source.nameTag.replace(/'/g, '"'));
     const data = {};
     for (let property in parsed.data) {
@@ -35,6 +37,7 @@ function recieveData(arg) {
     }
     data["dimension"] = arg.dimension;
     callbacks[parsed.id].forEach(callback => {
+        Commands.run(`say calledback one function`, arg.dimension);
         callback(data);
     });
 }

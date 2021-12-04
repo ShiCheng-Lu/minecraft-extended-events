@@ -16,32 +16,6 @@ system.initialize = function () {
     system.listenForEvent("minecraft:player_destroyed_block", createEventHandler("player"));
     system.listenForEvent("minecraft:player_placed_block", createEventHandler("player"));
 };
-function getAllComponent(entity) {
-    return [
-        system.getComponent(entity, "minecraft:armor_container"),
-        system.getComponent(entity, "minecraft:attack"),
-        system.getComponent(entity, "minecraft:collision_box"),
-        system.getComponent(entity, "minecraft:damage_sensor"),
-        system.getComponent(entity, "minecraft:equipment"),
-        system.getComponent(entity, "minecraft:equippable"),
-        system.getComponent(entity, "minecraft:explode"),
-        system.getComponent(entity, "minecraft:hand_container"),
-        system.getComponent(entity, "minecraft:healable"),
-        system.getComponent(entity, "minecraft:health"),
-        system.getComponent(entity, "minecraft:hotbar_container"),
-        system.getComponent(entity, "minecraft:interact"),
-        system.getComponent(entity, "minecraft:inventory"),
-        system.getComponent(entity, "minecraft:inventory_container"),
-        system.getComponent(entity, "minecraft:lookat"),
-        system.getComponent(entity, "minecraft:nameable"),
-        system.getComponent(entity, "minecraft:position"),
-        system.getComponent(entity, "minecraft:rotation"),
-        system.getComponent(entity, "minecraft:shooter"),
-        system.getComponent(entity, "minecraft:spawn_entity"),
-        system.getComponent(entity, "minecraft:teleport"),
-        system.getComponent(entity, "minecraft:tick_world")
-    ];
-}
 function parseEntity(data) {
     if (data.__identifier__ === "minecraft:player") {
         const name = system.getComponent(data, "minecraft:nameable");
@@ -62,7 +36,9 @@ function parseEntity(data) {
             type: "entity",
             data: {
                 id: data.__identifier__,
-                ...pos.data,
+                x: pos.data.x,
+                y: pos.data.y,
+                z: pos.data.z,
             },
         };
     }
@@ -99,6 +75,7 @@ function parseProperty(data) {
 function createEventHandler(playerKey) {
     return function (data) {
         if (data.data[playerKey].__identifier__ !== "minecraft:player") {
+            system.executeCommand(`/say failed: no player involved`, () => { });
             return;
         }
         const eventData = {
@@ -114,12 +91,12 @@ function createEventHandler(playerKey) {
         }
         const playerData = eventData.data[playerKey];
         if (playerData === undefined) {
+            system.executeCommand(`/say failed: play data did not exist`, () => { });
             return;
         }
         const playerName = playerData.data;
         const dataString = JSON.stringify(eventData).replace(/"/g, "'");
         system.executeCommand(`/execute "${playerName}" ~~~ summon data:json "${dataString}"`, () => { });
-        system.executeCommand(`/say "${dataString}"`, () => { });
-        server.log(`transmitted data: ${dataString}`);
+        system.executeCommand(`/say ${playerName} --- ${dataString}`, () => { });
     };
 }

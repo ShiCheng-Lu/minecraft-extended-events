@@ -10,8 +10,7 @@
         "components": {
             "minecraft:explode": {
                 "breaks_blocks": false,
-                "fuse_lit": true,
-                "power": 0
+                "fuse_lit": true
             },
             "minecraft:nameable": {
                 "allow_name_tag_renaming": false
