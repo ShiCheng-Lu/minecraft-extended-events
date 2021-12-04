@@ -9,7 +9,10 @@ adds player related events from minecraft scripting to gametest scripting
 
 current working version with @types/mojang-minecraft@0.1.1
 
-### add `scripts/server/minecraft-extended-events.js` to your behavour pack scripts.
+### add the data transfer entity to your behaviour pack entities folder.
+* `cp node_modules/minecraft-extended-events/entities/data_json.json entities`
+
+### add the event created from old minecraft scripting to your behaviour pack scripts.
 
 * for javascript/typescript projects execute the following command\
 `cp node_modules/minecraft-extended-events/scripts/server/minecraft-extended-events.js scripts/server`
