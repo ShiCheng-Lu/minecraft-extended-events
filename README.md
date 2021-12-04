@@ -3,6 +3,8 @@ minecraft-extended-events
 
 this module adds additional events from old minecraft scripting to new gametest based scripting
 
+adds player related events from minecraft scripting to gametest scripting
+
 `npm i minecraft-extended-events`
 
 current working version with @types/mojang-minecraft@0.1.1
