@@ -1,14 +1,11 @@
-import { Commands } from "mojang-minecraft"
-import { World } from "./index.js"
-
+import { Commands } from "mojang-minecraft";
+import { World } from "./index.js";
 const OVERWORLD = World.getDimension("overworld");
-
-function sayData(eventName: string) {
-    return function(data: any) {
+function sayData(eventName) {
+    return function (data) {
         Commands.run(`say ${eventName}: ${JSON.stringify(data)}`, OVERWORLD);
-    }
+    };
 }
-
 World.events.beforeChat.subscribe(sayData("beforeChat"));
 World.events.beforeExplosion.subscribe(sayData("beforeExplosion"));
 World.events.beforePistonActivate.subscribe(sayData("beforePistonActivate"));
