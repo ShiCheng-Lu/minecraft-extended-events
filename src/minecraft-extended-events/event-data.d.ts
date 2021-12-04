@@ -36,6 +36,7 @@ declare type FieldData = {
 } | undefined
 
 declare type EventData = {
+    type: "script-event",
     id: string,
     data: { [key: string]: FieldData }
 }

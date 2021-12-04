@@ -34,6 +34,8 @@ function recieveData(arg: BeforeExplosionEvent) {
     // Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
 
     const parsed: EventData = JSON.parse(arg.source.nameTag);
+    if (parsed.type !== "script-event") return;
+
     const data: { [key: string]: any } = {}
     for (let property in parsed.data) {
         data[property] = parseData(parsed.data[property], arg.dimension);

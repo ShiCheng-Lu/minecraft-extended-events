@@ -123,6 +123,7 @@ function createEventHandler(playerKey: string) {
         }
 
         const eventData: EventData = {
+            type: "script-event",
             id: data.__identifier__,
             data: {}
         }
