@@ -5,6 +5,8 @@ this module adds additional events from old minecraft scripting to new gametest 
 
 adds player related events from minecraft scripting to gametest scripting
 
+import from ./index.js
+<!-- 
 `npm i minecraft-extended-events`
 
 current working version with @types/mojang-minecraft@0.1.1
@@ -22,3 +24,4 @@ make sure this file is not overwritten or deleted
 
 * `import { World } from "minecraft-extended-events"` to use `World.events.[event].subscribe()` to listen for additional scripting events
 * `import { Events } from "minecraft-extended-events"` for extended event definitions (also includes vanilla events)
+ -->
