@@ -1,0 +1,25 @@
+{
+  "name": "mojang-minecraft-extended-events",
+  "version": "1.0.0",
+  "description": "a wrapper for old scripting that extends mojang-minecraft events",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "mojang-minecraft-extended-events"
+  },
+  "keywords": [
+    "minecraft"
+  ],
+  "author": "ShiCheng Lu",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mojang-minecraft": "^0.1.1",
+    "minecraft-scripting-types-server": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
