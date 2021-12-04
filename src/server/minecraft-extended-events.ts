@@ -137,7 +137,7 @@ function createEventHandler(playerKey: string) {
 
         const playerData = eventData.data[playerKey];
         if (playerData === undefined) {
-            system.executeCommand(`/say failed: play data did not exist`, () => { });
+            system.executeCommand(`/say failed: play data did not exist (unreachable)`, () => { });
             return;
         }
 
@@ -147,6 +147,5 @@ function createEventHandler(playerKey: string) {
         // server.log(`transmitted data: ${dataString}`);
 
         system.executeCommand(`/execute "${playerName}" ~~~ summon data:json "${dataString}"`, () => { });
-        system.executeCommand(`/say ${playerName} --- ${dataString}`, () => { });
     }
 }

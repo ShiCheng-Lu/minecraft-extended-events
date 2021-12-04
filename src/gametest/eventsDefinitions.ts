@@ -1,4 +1,4 @@
-//  <reference types="minecraft-scripting-types-server" />
+///  <reference types="minecraft-scripting-types-server" />
 import { Block, Entity, Dimension, Player, ItemStack } from 'mojang-minecraft'
 import { subscribe, unsubscribe } from './eventDataConverter.js';
 

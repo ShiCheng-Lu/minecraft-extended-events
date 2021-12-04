@@ -29,5 +29,4 @@ World.events.pistonActivate.subscribe(sayData("pistonActivate"));
 World.events.playerAttackedEntity.subscribe(sayData("playerAttackedEntity"));
 World.events.playerDestroyedBlock.subscribe(sayData("playerDestroyedBlock"));
 World.events.playerPlacedBlock.subscribe(sayData("playerPlacedBlock"));
-World.events.tick.subscribe(sayData("tick"));
 World.events.weatherChange.subscribe(sayData("weatherChanged"));

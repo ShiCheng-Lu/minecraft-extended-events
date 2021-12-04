@@ -29,6 +29,7 @@ function recieveData(arg) {
     Commands.run(`say ${JSON.stringify(arg)}`, arg.dimension);
     if (arg.source.id !== "data:json")
         return;
+    arg.cancel = true;
     Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
     const parsed = JSON.parse(arg.source.nameTag.replace(/'/g, '"'));
     const data = {};

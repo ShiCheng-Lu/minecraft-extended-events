@@ -27,12 +27,10 @@ function parseData(arg: FieldData, dimension: Dimension) {
 }
 
 function recieveData(arg: BeforeExplosionEvent) {
-    Commands.run(`say ${JSON.stringify(arg)}`, arg.dimension);
-
     if (arg.source.id !== "data:json") return;
+    arg.cancel = true; // stop the explosion
 
-    Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
-    // Commands.run(`say ${arg.source.getComponent("explode").id}`, World.getDimension("overworld"));
+    // Commands.run(`say ${arg.source.nameTag}`, arg.dimension);
 
     const parsed: EventData = JSON.parse(arg.source.nameTag.replace(/'/g, '"'));
     const data: { [key: string]: any } = {}
@@ -42,7 +40,6 @@ function recieveData(arg: BeforeExplosionEvent) {
     data["dimension"] = arg.dimension;
 
     callbacks[parsed.id].forEach(callback => {
-        Commands.run(`say calledback one function`, arg.dimension);
         callback(data);
     });
 }
