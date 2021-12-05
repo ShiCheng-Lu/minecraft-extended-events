@@ -7,6 +7,18 @@ type EventCallback = (arg: any) => void
 
 const callbacks: { [key: string]: EventCallback[] } = {}
 
+export function subscribe(event: string, callback: EventCallback): EventCallback {
+    if (callbacks[event] === undefined) {
+        callbacks[event] = []
+    }
+    callbacks[event].push(callback);
+    return callback;
+}
+
+export function unsubscribe(event: string, callback: EventCallback) {
+    callbacks[event] = callbacks[event].filter(callback);
+}
+
 function parseData(arg: FieldData, dimension: Dimension) {
     if (arg === undefined) {
         return;
@@ -45,16 +57,4 @@ function recieveData(arg: BeforeExplosionEvent) {
     callbacks[parsed.id].forEach(callback => {
         callback(data);
     });
-}
-
-export function subscribe(event: string, callback: EventCallback): EventCallback {
-    if (callbacks[event] === undefined) {
-        callbacks[event] = []
-    }
-    callbacks[event].push(callback);
-    return callback;
-}
-
-export function unsubscribe(event: string, callback: EventCallback) {
-    callbacks[event] = callbacks[event].filter(callback);
 }

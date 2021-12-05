@@ -1,8 +1,8 @@
 ///  <reference types="minecraft-scripting-types-server" />
 
 import { Commands } from "mojang-minecraft"
-import { World } from "../minecraft-extended-events.js"
-import { subscribe } from "../minecraft-extended-events/eventDataConverter.js"
+import { World } from "../modules/minecraft-extended-events/index.js"
+import { subscribe } from "../modules/minecraft-extended-events/eventDataConverter.js"
 
 const OVERWORLD = World.getDimension("overworld");
 

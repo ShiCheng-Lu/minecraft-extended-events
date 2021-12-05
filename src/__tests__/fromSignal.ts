@@ -1,6 +1,6 @@
 import { Commands } from "mojang-minecraft"
-import { World } from "../minecraft-extended-events.js"
-import * as Signal from "../minecraft-extended-events/eventsDefinitions.js"
+import { World } from "../modules/minecraft-extended-events/index.js"
+import * as Signal from "../modules/minecraft-extended-events/eventsSignals.js"
 
 const OVERWORLD = World.getDimension("overworld");
 

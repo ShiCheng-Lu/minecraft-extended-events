@@ -1,5 +1,5 @@
 import { Commands } from "mojang-minecraft"
-import { World } from "../minecraft-extended-events.js"
+import { World } from "../modules/minecraft-extended-events/index.js"
 
 const OVERWORLD = World.getDimension("overworld");
 

@@ -1,6 +1,16 @@
 import { BlockLocation, World, ItemStack } from "mojang-minecraft";
 World.events.beforeExplosion.subscribe(recieveData);
 const callbacks = {};
+export function subscribe(event, callback) {
+    if (callbacks[event] === undefined) {
+        callbacks[event] = [];
+    }
+    callbacks[event].push(callback);
+    return callback;
+}
+export function unsubscribe(event, callback) {
+    callbacks[event] = callbacks[event].filter(callback);
+}
 function parseData(arg, dimension) {
     if (arg === undefined) {
         return;
@@ -30,6 +40,8 @@ function recieveData(arg) {
         return;
     arg.cancel = true;
     const parsed = JSON.parse(arg.source.nameTag);
+    if (parsed.type !== "script-event")
+        return;
     const data = {};
     for (let property in parsed.data) {
         data[property] = parseData(parsed.data[property], arg.dimension);
@@ -38,14 +50,4 @@ function recieveData(arg) {
     callbacks[parsed.id].forEach(callback => {
         callback(data);
     });
-}
-export function subscribe(event, callback) {
-    if (callbacks[event] === undefined) {
-        callbacks[event] = [];
-    }
-    callbacks[event].push(callback);
-    return callback;
-}
-export function unsubscribe(event, callback) {
-    callbacks[event] = callbacks[event].filter(callback);
 }

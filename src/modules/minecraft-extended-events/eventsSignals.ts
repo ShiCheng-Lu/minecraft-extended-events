@@ -2,7 +2,6 @@
 import { Block, Entity, Dimension, Player, ItemStack } from 'mojang-minecraft'
 import { subscribe, unsubscribe } from './eventDataConverter.js';
 
-ReceiveFromMinecraftServer.BlockDestructionStarted;
 export class BlockDestructionStartedEvent {
     "dimension": Dimension;
     "player": Player;
@@ -12,12 +11,10 @@ export class BlockDestructionStartedEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when a block starts to be destroyed
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: BlockDestructionStartedEvent) => void): (arg: BlockDestructionStartedEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.BlockDestructionStarted, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.BlockDestructionStarted, callback);
     }
     /**
      * @remarks
@@ -26,7 +23,7 @@ export class BlockDestructionStartedEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: BlockDestructionStartedEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.BlockDestructionStarted, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.BlockDestructionStarted, callback);
     }
 }
 
@@ -41,12 +38,10 @@ export class BlockDestructionStoppedEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when a block stops to be destroyed
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: BlockDestructionStoppedEvent) => void): (arg: BlockDestructionStoppedEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.BlockDestructionStopped, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.BlockDestructionStopped, callback);
     }
     /**
      * @remarks
@@ -55,7 +50,7 @@ export class BlockDestructionStoppedEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: BlockDestructionStoppedEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.BlockDestructionStopped, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.BlockDestructionStopped, callback);
     }
 }
 
@@ -69,12 +64,10 @@ export class BlockInteractedWithEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when a player interacts with a block
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: BlockInteractedWithEvent) => void): (arg: BlockInteractedWithEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.BlockInteractedWith, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.BlockInteractedWith, callback);
     }
     /**
      * @remarks
@@ -83,7 +76,7 @@ export class BlockInteractedWithEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: BlockInteractedWithEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.BlockInteractedWith, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.BlockInteractedWith, callback);
     }
 }
 
@@ -100,12 +93,10 @@ export class EntityAcquiredItemEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when an entity acquire an item
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: EntityAcquiredItemEvent) => void): (arg: EntityAcquiredItemEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityAcquiredItem, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityAcquiredItem, callback);
     }
     /**
      * @remarks
@@ -114,7 +105,7 @@ export class EntityAcquiredItemEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityAcquiredItemEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityAcquiredItem, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityAcquiredItem, callback);
     }
 }
 
@@ -129,12 +120,10 @@ export class EntityCarriedItemChangedEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when the carried item for an entity is changed
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: EntityCarriedItemChangedEvent) => void): (arg: EntityCarriedItemChangedEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityCarriedItemChanged, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityCarriedItemChanged, callback);
     }
     /**
      * @remarks
@@ -143,7 +132,7 @@ export class EntityCarriedItemChangedEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityCarriedItemChangedEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityCarriedItemChanged, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityCarriedItemChanged, callback);
     }
 }
 
@@ -157,12 +146,10 @@ export class EntityDeathEventSignal {
     /**
     * @remarks
     * Adds a callback that will be called when an entity dies
-    * explosion behavior.
     * @param callback
     */
     subscribe(callback: (arg: EntityDeathEvent) => void): (arg: EntityDeathEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityDeath, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityDeath, callback);
     }
     /**
      * @remarks
@@ -171,7 +158,7 @@ export class EntityDeathEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityDeathEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityDeath, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityDeath, callback);
     }
 }
 
@@ -185,12 +172,10 @@ export class EntityDroppedItemEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when an entity drops an item
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: EntityDroppedItemEvent) => void): (arg: EntityDroppedItemEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityDroppedItem, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityDroppedItem, callback);
     }
     /**
      * @remarks
@@ -199,7 +184,7 @@ export class EntityDroppedItemEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityDroppedItemEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityDroppedItem, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityDroppedItem, callback);
     }
 }
 
@@ -213,12 +198,10 @@ export class EntityEquippedArmorEventSignal {
     /**
     * @remarks
     * Adds a callback that will be called when an entity equips an armor
-    * explosion behavior.
     * @param callback
     */
     subscribe(callback: (arg: EntityEquippedArmorEvent) => void): (arg: EntityEquippedArmorEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityEquippedArmor, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityEquippedArmor, callback);
     }
     /**
      * @remarks
@@ -227,7 +210,7 @@ export class EntityEquippedArmorEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityEquippedArmorEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityEquippedArmor, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityEquippedArmor, callback);
     }
 }
 
@@ -241,12 +224,10 @@ export class EntityStartRidingEventSignal {
     /**
         * @remarks
         * Adds a callback that will be called when an entity starts riding another entity
-        * explosion behavior.
         * @param callback
         */
     subscribe(callback: (arg: EntityStartRidingEvent) => void): (arg: EntityStartRidingEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityStartRiding, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityStartRiding, callback);
     }
     /**
      * @remarks
@@ -255,7 +236,7 @@ export class EntityStartRidingEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityStartRidingEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityStartRiding, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityStartRiding, callback);
     }
 }
 
@@ -271,12 +252,10 @@ export class EntityStopRidingEventSignal {
     /**
     * @remarks
     * Adds a callback that will be called when an entity stops riding another entity
-    * explosion behavior.
     * @param callback
     */
     subscribe(callback: (arg: EntityStopRidingEvent) => void): (arg: EntityStopRidingEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityStopRiding, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityStopRiding, callback);
     }
     /**
      * @remarks
@@ -285,7 +264,7 @@ export class EntityStopRidingEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityStopRidingEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityStopRiding, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityStopRiding, callback);
     }
 }
 
@@ -301,12 +280,10 @@ export class EntityUseItemEventSignal {
     /**
     * @remarks
     * Adds a callback that will be called when an entity uses an item
-    * explosion behavior.
     * @param callback
     */
     subscribe(callback: (arg: EntityUseItemEvent) => void): (arg: EntityUseItemEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.EntityUseItem, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.EntityUseItem, callback);
     }
     /**
      * @remarks
@@ -315,7 +292,7 @@ export class EntityUseItemEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: EntityUseItemEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.EntityUseItem, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.EntityUseItem, callback);
     }
 }
 
@@ -332,12 +309,10 @@ export class PlayerAttackedEntityEventSignal {
     /**
     * @remarks
     * Adds a callback that will be called when a player attacks an entity
-    * explosion behavior.
     * @param callback
     */
     subscribe(callback: (arg: PlayerAttackedEntityEvent) => void): (arg: PlayerAttackedEntityEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.PlayerAttackedEntity, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.PlayerAttackedEntity, callback);
     }
     /**
      * @remarks
@@ -346,7 +321,7 @@ export class PlayerAttackedEntityEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: PlayerAttackedEntityEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.PlayerAttackedEntity, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.PlayerAttackedEntity, callback);
     }
 }
 
@@ -362,12 +337,10 @@ export class PlayerDestroyedBlockEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when a player destroys a block
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: PlayerDestroyedBlockEvent) => void): (arg: PlayerDestroyedBlockEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.PlayerDestroyedBlock, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.PlayerDestroyedBlock, callback);
     }
     /**
      * @remarks
@@ -376,7 +349,7 @@ export class PlayerDestroyedBlockEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: PlayerDestroyedBlockEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.PlayerDestroyedBlock, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.PlayerDestroyedBlock, callback);
     }
 }
 
@@ -390,12 +363,10 @@ export class PlayerPlacedBlockEventSignal {
     /**
      * @remarks
      * Adds a callback that will be called when a player places a block
-     * explosion behavior.
      * @param callback
      */
     subscribe(callback: (arg: PlayerPlacedBlockEvent) => void): (arg: PlayerPlacedBlockEvent) => void {
-        subscribe(ReceiveFromMinecraftServer.PlayerPlacedBlock, callback);
-        return callback;
+        return subscribe(ReceiveFromMinecraftServer.PlayerPlacedBlock, callback);
     }
     /**
      * @remarks
@@ -404,7 +375,7 @@ export class PlayerPlacedBlockEventSignal {
      * @throws This function can throw errors.
      */
     unsubscribe(callback: (arg: PlayerPlacedBlockEvent) => void): void {
-        unsubscribe(ReceiveFromMinecraftServer.PlayerPlacedBlock, callback);
+        return unsubscribe(ReceiveFromMinecraftServer.PlayerPlacedBlock, callback);
     }
 }
 

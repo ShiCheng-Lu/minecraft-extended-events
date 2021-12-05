@@ -79,6 +79,7 @@ function createEventHandler(playerKey) {
             return;
         }
         const eventData = {
+            type: "script-event",
             id: data.__identifier__,
             data: {}
         };
