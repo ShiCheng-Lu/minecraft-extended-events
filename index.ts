@@ -1,0 +1,1 @@
+export * from "./src/modules/minecraft-extended-events/index.js"
