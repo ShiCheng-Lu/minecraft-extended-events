@@ -12,27 +12,25 @@ export function unsubscribe(event, callback) {
     callbacks[event] = callbacks[event].filter(callback);
 }
 function parseData(arg, dimension) {
-    if (arg === undefined) {
+    if (arg === undefined)
         return;
-    }
-    else if (arg.type === "player") {
-        return World.getPlayers().find((value) => value.nameTag === arg.data);
-    }
-    else if (arg.type === "block") {
-        const location = new BlockLocation(arg.data.x, arg.data.y, arg.data.z);
-        return dimension.getBlock(location);
-    }
-    else if (arg.type === "entity") {
-        const location = new BlockLocation(arg.data.x, arg.data.y, arg.data.z);
-        return dimension.getEntitiesAtBlockLocation(location).find((value) => {
-            value.id === arg.data.id;
-        });
-    }
-    else if (arg.type === "itemStack") {
-        return new ItemStack(arg.data.name, arg.data.amount, 0);
-    }
-    else {
-        return arg.data;
+    switch (arg.type) {
+        case ("player"):
+            return World.getPlayers().find((value) => value.nameTag === arg.data);
+        case ("block"): {
+            const location = new BlockLocation(arg.data.x, arg.data.y, arg.data.z);
+            return dimension.getBlock(location);
+        }
+        case ("entity"): {
+            const location = new BlockLocation(arg.data.x, arg.data.y, arg.data.z);
+            return dimension.getEntitiesAtBlockLocation(location).find((value) => {
+                value.id === arg.data.id;
+            });
+        }
+        case ("itemStack"):
+            return new ItemStack(arg.data.name, arg.data.amount, 0);
+        default:
+            return arg.data;
     }
 }
 function recieveData(arg) {

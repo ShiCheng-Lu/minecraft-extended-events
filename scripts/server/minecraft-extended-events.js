@@ -97,6 +97,6 @@ function createEventHandler(playerKey) {
         }
         const playerName = playerData.data;
         const dataString = JSON.stringify(JSON.stringify(eventData));
-        system.executeCommand(`/execute "${playerName}" ~~~ summon data:json "${dataString}"`, () => { });
+        system.executeCommand(`/execute "${playerName}" ~~~ summon data:json ${dataString}`, () => { });
     };
 }
