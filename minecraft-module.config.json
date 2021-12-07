@@ -1,7 +1,6 @@
 {
-    "type": "js",
     "exports": {
-        "scripts/modules": "BP/scripts/modules",
+        "src/modules/minecraft-extended-events": "BP/scripts/.modules/minecraft-extended-events",
         "scripts/server": "BP/scripts/server",
         "entities": "BP/entities"
     }
