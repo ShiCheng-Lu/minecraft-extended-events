@@ -1,0 +1,8 @@
+{
+    "type": "js",
+    "exports": {
+        "scripts/modules": "BP/scripts/modules",
+        "scripts/server": "BP/scripts/server",
+        "entities": "BP/entities"
+    }
+}
